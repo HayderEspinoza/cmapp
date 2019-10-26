@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon server",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "redoc-bundle": "redoc-cli bundle ./spec/api-description.yml --output ./docs/index.html",
+    "redoc-reload": "live-server --watch=docs/ --open=docs/",
+    "redoc-watch": "watch \"npm run redoc-bundle\" ./spec",
+    "api-doc": "concurrently \"npm run redoc-reload\" \"npm run redoc-watch\""
   },
   "repository": {
     "type": "git",
@@ -21,12 +25,16 @@
   },
   "homepage": "https://github.com/HayderEspinoza/todo-list#readme",
   "dependencies": {
+    "concurrently": "^5.0.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-validator": "^6.2.0",
+    "live-server": "^1.2.1",
     "moment": "^2.24.0",
     "mongoose": "^5.7.6",
-    "nodemon": "^1.19.4"
+    "nodemon": "^1.19.4",
+    "redoc-cli": "^0.9.2",
+    "watch": "^1.0.2"
   }
 }
