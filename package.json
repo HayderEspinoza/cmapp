@@ -1,0 +1,32 @@
+{
+  "name": "cmapp",
+  "version": "1.0.0",
+  "description": "Todo list",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HayderEspinoza/todo-list.git"
+  },
+  "keywords": [
+    "todo-list"
+  ],
+  "author": "Hayder Espinoza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HayderEspinoza/todo-list/issues"
+  },
+  "homepage": "https://github.com/HayderEspinoza/todo-list#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.2.0",
+    "moment": "^2.24.0",
+    "mongoose": "^5.7.6",
+    "nodemon": "^1.19.4"
+  }
+}
