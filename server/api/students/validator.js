@@ -1,6 +1,5 @@
 const { checkSchema } = require('express-validator');
-const { weekDays } = require('../../utils/constants');
-const { isValidDate, isGreaterThan } = require('../../utils/helpers');
+const studentRepo = require('./repository');
 
 const validations = {
   name: {
@@ -31,6 +30,17 @@ const validations = {
     },
     isEmail: {
       errorMessage: 'Invalid email'
+    },
+    custom: {
+      errorMessage: 'Email already exist',
+      options: async email => {
+        try {
+          const student = await studentRepo.findOne({ email });
+          if (student) return Promise.reject();
+        } catch (error) {
+          return error;
+        }
+      }
     }
   }
 };
