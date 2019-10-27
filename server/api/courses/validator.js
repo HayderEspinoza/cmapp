@@ -52,7 +52,7 @@ const storeStudent = {
       negated: true
     },
     custom: {
-      errorMessage: 'prueba',
+      errorMessage: 'Course does not exist',
       options: async courseId => {
         const course = await courseRepo.findById(courseId);
         if (!course) throw new Error();
@@ -80,17 +80,51 @@ const storeStudent = {
   }
 };
 
+const removeStudent = {
+  courseId: {
+    isEmpty: {
+      errorMessage: 'Course field is required',
+      negated: true
+    },
+    custom: {
+      errorMessage: 'Course does not exist',
+      options: async courseId => {
+        const course = await courseRepo.findById(courseId);
+        if (!course) throw new Error();
+        return true;
+      }
+    }
+  },
+  studentId: {
+    isEmpty: {
+      errorMessage: 'Student field is required',
+      negated: true
+    },
+    custom: {
+      errorMessage: 'Student does not exist in this course',
+      options: async (studentId, { req }) => {
+        const { courseId } = req.body;
+        const exist = await courseRepo.findOne({
+          _id: courseId,
+          students: studentId
+        });
+        if (exist) return true;
+        throw new Error();
+      }
+    }
+  }
+};
+
 const validator = option => {
   switch (option) {
-    case 'store': {
+    case 'store':
       return [checkSchema(validations)];
-    }
-    case 'update': {
+    case 'update':
       return [checkSchema(validations)];
-    }
-    case 'storeStudent': {
+    case 'storeStudent':
       return [checkSchema(storeStudent)];
-    }
+    case 'removeStudent':
+      return [checkSchema(removeStudent)];
     default:
       return [];
   }

@@ -78,7 +78,30 @@ async function storeStudent(req, res) {
       const course = await courseRepo.findById(courseId);
       course.students.push(studentId);
       await course.save();
-      return res.status(201).send({ message: messages.stored, course });
+      return res.status(201).send({ message: messages.updated, course });
+    }
+  } catch (error) {
+    return res.status(500).send({ error });
+  }
+}
+
+async function removeStudent(req, res) {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty())
+      return res
+        .status(409)
+        .send({ errors: errors.formatWith(formatError).mapped() });
+    else {
+      const { courseId, studentId } = req.body;
+      let course = await courseRepo.findById(courseId);
+      let { students } = course;
+
+      students = students.filter(student => student !== studentId);
+      course.students = students;
+      await course.save();
+
+      return res.status(201).send({ message: messages.deleted });
     }
   } catch (error) {
     return res.status(500).send({ error });
@@ -90,5 +113,6 @@ module.exports = {
   store,
   update,
   remove,
-  storeStudent
+  storeStudent,
+  removeStudent
 };
