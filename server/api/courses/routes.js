@@ -5,6 +5,7 @@ const validator = require('./validator');
 
 router.get('/', controller.index);
 router.post('/', validator('store'), controller.store);
+router.post('/add-student', validator('storeStudent'), controller.storeStudent);
 router.put('/:id', validator('update'), controller.update);
 router.delete('/:id', controller.remove);
 

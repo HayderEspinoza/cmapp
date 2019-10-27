@@ -6,8 +6,7 @@ const StudentSchema = Schema(
     name: { type: String, trim: true },
     lastname: { type: String, trim: true },
     age: { type: Number },
-    email: { type: String },
-    courses: { type: Array }
+    email: { type: String }
   },
   { timestamps: true }
 );

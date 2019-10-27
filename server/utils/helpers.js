@@ -13,7 +13,9 @@ function isValidDate(date) {
 }
 
 function isGreaterThan(greater, lower) {
-  return moment(greater).isAfter(lower);
+  greater = moment(greater);
+  lower = moment(lower);
+  return greater.isValid() && lower.isValid() && greater.isAfter(lower);
 }
 
 module.exports = {

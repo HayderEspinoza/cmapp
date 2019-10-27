@@ -66,9 +66,29 @@ async function remove(req, res) {
   }
 }
 
+async function storeStudent(req, res) {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty())
+      return res
+        .status(409)
+        .send({ errors: errors.formatWith(formatError).mapped() });
+    else {
+      const { courseId, studentId } = req.body;
+      const course = await courseRepo.findById(courseId);
+      course.students.push(studentId);
+      await course.save();
+      return res.status(201).send({ message: messages.stored, course });
+    }
+  } catch (error) {
+    return res.status(500).send({ error });
+  }
+}
+
 module.exports = {
   index,
   store,
   update,
-  remove
+  remove,
+  storeStudent
 };

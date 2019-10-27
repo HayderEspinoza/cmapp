@@ -9,7 +9,8 @@ const CourseSchema = Schema(
       time: { type: String, trim: true }
     },
     startDate: { type: String },
-    endDate: { type: String }
+    endDate: { type: String },
+    students: { type: Array }
   },
   { timestamps: true }
 );
