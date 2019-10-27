@@ -147,9 +147,9 @@ paths:
     post:
       tags:
         - Courses
-      summary: Add course
+      summary: Create course
       description: Create new course to show it in the applications.
-      operationId: addCourse
+      operationId: createCourse
       produces:
         - application/json
       parameters:
@@ -207,6 +207,50 @@ paths:
           description: Invalid ID supplied
         404:
           description: City not found
+  /courses/add-student:
+    post:
+      tags:
+        - Courses
+      summary: Add student
+      description: Add student to a course
+      operationId: addStudend
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/AddStudent'
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/definitions/Course'
+  /courses/remove-student:
+    put:
+      tags:
+        - Courses
+      summary: Remove student
+      description: Remove student from a course
+      operationId: removeStudent
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/AddStudent'
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/definitions/Course'
 
 definitions:
   Student:
@@ -253,3 +297,15 @@ definitions:
       endDate:
         type: string
         example: '12-26-2019'
+  AddStudent:
+    type: object
+    required:
+      - studentId
+      - courseId
+    properties:
+      studentId:
+        type: string
+        example: '5db52cb70045a32788a5fa08'
+      courseId:
+        type: string
+        example: '5db5cec16c4629048c4c0e81'
